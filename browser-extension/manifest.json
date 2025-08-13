@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Vimemo Transcription - 字幕抽出ツール",
+  "version": "1.0",
+  "description": "Vimeoの動画から字幕を瞬時に抽出するブラウザ拡張機能",
+  "permissions": [
+    "activeTab",
+    "clipboardWrite"
+  ],
+  "host_permissions": [
+    "*://vimeo.com/*",
+    "*://player.vimeo.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["*://vimeo.com/*", "*://player.vimeo.com/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Vimeo字幕抽出",
+    "default_icon": "icon.svg"
+  },
+  "icons": {
+    "16": "icon.svg",
+    "48": "icon.svg",
+    "128": "icon.svg"
+  }
+}

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景円 -->
+  <circle cx="50" cy="50" r="46" fill="url(#grad1)" stroke="#333" stroke-width="3"/>
+  
+  <!-- 大きく太い白いV -->
+  <path d="M20 20 L45 70 L50 60 L55 70 L80 20" 
+        stroke="#fff" 
+        stroke-width="12" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" 
+        fill="none"/>
+  
+  <!-- 黒い縁取りで更に目立たせる -->
+  <path d="M20 20 L45 70 L50 60 L55 70 L80 20" 
+        stroke="#333" 
+        stroke-width="14" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" 
+        fill="none" 
+        opacity="0.3"/>
+</svg>

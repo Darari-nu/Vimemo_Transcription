@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vimemo Transcription - Vimeo字幕抽出ツール</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎬 Vimemo Transcription</h1>
+            <p>VimeoのURLから字幕テキストを抽出するツール</p>
+        </header>
+
+        <main>
+            <section class="input-section">
+                <div class="input-group">
+                    <label for="vimeo-url">Vimeo URL を入力してください</label>
+                    <input 
+                        type="url" 
+                        id="vimeo-url" 
+                        placeholder="https://vimeo.com/123456789"
+                        class="url-input"
+                    >
+                    <button id="load-video" class="load-btn">動画を読み込む</button>
+                </div>
+            </section>
+
+            <section class="video-section" id="video-section" style="display: none;">
+                <div class="video-container" id="video-container">
+                    <!-- Vimeo埋め込み動画がここに表示されます -->
+                </div>
+                <div class="controls">
+                    <button id="extract-subtitles" class="extract-btn">字幕を抽出</button>
+                    <div class="instructions">
+                        <p>💡 <strong>使い方:</strong></p>
+                        <ol>
+                            <li>動画を少し再生してください</li>
+                            <li>「字幕を抽出」ボタンをクリック</li>
+                            <li>字幕テキストが下に表示されます</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <section class="result-section" id="result-section" style="display: none;">
+                <h2>📝 抽出された字幕</h2>
+                <div class="result-controls">
+                    <button id="copy-text" class="copy-btn">📋 コピー</button>
+                    <button id="download-text" class="download-btn">📥 ダウンロード</button>
+                    <button id="toggle-timestamps" class="toggle-btn">🕐 タイムスタンプ表示切替</button>
+                </div>
+                <textarea id="result-text" class="result-textarea" readonly></textarea>
+                <div class="result-info">
+                    <span id="char-count">0文字</span>
+                    <span id="line-count">0行</span>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>字幕が埋め込まれているVimeo動画でのみ動作します</p>
+        </footer>
+    </div>
+
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vimemo Transcription</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎬 Vimemo</h1>
+            <p>字幕抽出ツール</p>
+        </header>
+
+        <main>
+            <div id="status" class="status">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <span>ページ情報を確認中...</span>
+                </div>
+            </div>
+
+            <div id="controls" class="controls" style="display: none;">
+                <button id="extractBtn" class="extract-btn">
+                    <span class="btn-icon">📝</span>
+                    <span class="btn-text">字幕を抽出</span>
+                </button>
+                
+                <div class="info">
+                    <div id="videoInfo" class="video-info"></div>
+                </div>
+            </div>
+
+            <div id="result" class="result" style="display: none;">
+                <div class="result-header">
+                    <h3>📋 抽出結果</h3>
+                    <div class="result-actions">
+                        <button id="copyBtn" class="action-btn copy">📋 コピー</button>
+                        <button id="downloadBtn" class="action-btn download">💾 保存</button>
+                    </div>
+                </div>
+                
+                <div class="result-content">
+                    <textarea id="resultText" readonly></textarea>
+                    <div class="result-stats">
+                        <span id="charCount">0文字</span>
+                        <span id="lineCount">0行</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="error" class="error" style="display: none;">
+                <div class="error-icon">⚠️</div>
+                <div class="error-message" id="errorMessage"></div>
+                <button id="retryBtn" class="retry-btn">再試行</button>
+            </div>
+        </main>
+
+        <footer>
+            <div class="tips">
+                <strong>💡 ヒント:</strong>
+                <p>動画を数秒再生してから抽出すると成功率が上がります</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
