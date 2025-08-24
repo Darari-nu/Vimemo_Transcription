@@ -1,6 +1,6 @@
-// Vimemo Transcription - Popup Script
+// SubtitleGrabber - Popup Script
 
-class VimemoPopup {
+class SubtitleGrabberPopup {
     constructor() {
         this.currentTab = null;
         this.extractedData = null;
@@ -8,7 +8,7 @@ class VimemoPopup {
     }
 
     async init() {
-        console.log('🚀 Vimemo Popup 初期化開始');
+        console.log('🚀 SubtitleGrabber Popup 初期化開始');
         
         // DOM要素を取得
         this.status = document.getElementById('status');
@@ -50,18 +50,21 @@ class VimemoPopup {
             console.log('📄 現在のページ:', tab.url);
 
             // Vimeoページかどうかをチェック
-            if (!this.isVimeoPage(tab.url)) {
+            if (!this.isSupportedPage(tab.url)) {
                 this.showError('このページはVimeoではありません。\nVimeoの動画ページで拡張機能を使用してください。');
                 return;
             }
 
             // ページの動画ステータスをチェック
+            console.log('📤 Content Scriptにメッセージを送信中...');
             const response = await this.sendMessageToContent({ action: 'checkVideoStatus' });
+            console.log('📥 Content Scriptからの応答:', response);
             
             if (response) {
                 this.showControls(response);
             } else {
-                this.showError('ページとの通信に失敗しました。\nページを再読み込みしてからもう一度お試しください。');
+                console.error('❌ Content Scriptからの応答がありません');
+                this.showError('ページとの通信に失敗しました。\n\n考えられる原因：\n• ページを再読み込みしてください\n• 拡張機能の権限を確認してください\n• F12で開発者ツールのConsoleタブを確認してください');
             }
 
         } catch (error) {
@@ -70,7 +73,7 @@ class VimemoPopup {
         }
     }
 
-    isVimeoPage(url) {
+    isSupportedPage(url) {
         return url && (url.includes('vimeo.com') || url.includes('player.vimeo.com'));
     }
 
@@ -126,11 +129,13 @@ class VimemoPopup {
                 this.extractedData = response.data;
                 this.showResult(response.data);
                 
-                // 成功メッセージを表示
-                if (response.copied) {
+                // Popup側でクリップボードにコピー
+                try {
+                    await navigator.clipboard.writeText(response.data.plainText);
                     this.showSuccessMessage('字幕を抽出してクリップボードにコピーしました！');
-                } else {
-                    this.showSuccessMessage('字幕を抽出しました！');
+                } catch (err) {
+                    console.warn('📋 クリップボードコピー失敗:', err);
+                    this.showSuccessMessage('字幕を抽出しました！（手動でコピーしてください）');
                 }
             } else {
                 const errorMsg = response ? response.message : 'Content Scriptとの通信に失敗しました';
@@ -192,7 +197,7 @@ class VimemoPopup {
         
         chrome.downloads.download({
             url: url,
-            filename: `vimeo_subtitles_${new Date().getTime()}.txt`,
+            filename: `subtitles_${new Date().getTime()}.txt`,
             saveAs: true
         }, () => {
             URL.revokeObjectURL(url);
@@ -237,5 +242,5 @@ class VimemoPopup {
 
 // ポップアップ初期化
 document.addEventListener('DOMContentLoaded', () => {
-    new VimemoPopup();
+    new SubtitleGrabberPopup();
 });
